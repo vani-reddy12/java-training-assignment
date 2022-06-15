@@ -17,36 +17,35 @@ import com.zensar.Service.CouponServiceImpl;
 import com.zensar.entity.Coupon;
 
 @RestController
-@RequestMapping("/coupon-api")
+@RequestMapping(value="/coupon-api",produces = { MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE },consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 public class CouponController {
 	@Autowired
 	private CouponServiceImpl couponservice;
 
-	@GetMapping(value = "/coupons/{couponId}", produces = { MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE })
+	@GetMapping(value = "/coupons/{couponId}")
 	public Coupon getCoupon(@PathVariable("couponId") int couponId) {
 		return couponservice.getCoupon(couponId);
 	}
 
-	@GetMapping(value = { "/coupons" }, produces = { MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE })
+	@GetMapping(value = { "/coupons","/listOfCoupons" })
 
 	public List<Coupon> getAllCoupon() {
 		return couponservice.getAllCoupon();
 	}
 
-	@PostMapping(value = "/coupons", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	@PostMapping(value = "/coupons")
 	public void insertCoupon(@RequestBody Coupon coupon) {
 		couponservice.insertCoupon(coupon);
 
 	}
 
-	@PutMapping(value = "/coupons/{couponId}", consumes = { MediaType.APPLICATION_XML_VALUE,
-			MediaType.APPLICATION_JSON_VALUE })
+	@PutMapping(value = "/coupons/{couponId}")
 	public void updateCoupon(@PathVariable("couponId") int couponId, @RequestBody Coupon coupon) {
 		couponservice.updateCoupon(couponId, coupon);
 	}
 
-	@DeleteMapping(value = "/coupons/{couponId}")
-	public void deleteCoupon(@PathVariable("couponId") int couponId) {
+	@DeleteMapping("/coupons/{couponId}")
+	public void delete(@PathVariable("couponId") int couponId) {
 		couponservice.deleteCoupon(couponId);
 
 	}

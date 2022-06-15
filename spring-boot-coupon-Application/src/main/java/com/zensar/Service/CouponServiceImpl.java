@@ -10,6 +10,7 @@ import com.zensar.entity.Coupon;
 
 @Service
 public class CouponServiceImpl implements CouponService {
+
 	@Autowired
 	private CouponRepository couponrepository;
 

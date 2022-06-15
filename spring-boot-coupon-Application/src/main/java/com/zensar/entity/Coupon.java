@@ -7,18 +7,18 @@ import javax.persistence.Id;
 public class Coupon {
 	@Id
 	private int couponId;
-	private String couponName;
-	private int price;
+	private String couponCode;
+	private String expiryDate;
 
 	public Coupon() {
 		super();
 	}
 
-	public Coupon(int couponId, String couponName, int price) {
+	public Coupon(int couponId, String couponCode, String expiryDate) {
 		super();
 		this.couponId = couponId;
-		this.couponName = couponName;
-		this.price = price;
+		this.couponCode = couponCode;
+		this.expiryDate= expiryDate;
 	}
 
 	public int getCouponId() {
@@ -29,25 +29,25 @@ public class Coupon {
 		this.couponId = couponId;
 	}
 
-	public String getCouponName() {
-		return couponName;
+	public String getCouponCode() {
+		return couponCode;
 	}
 
-	public void setCouponName(String couponName) {
-		this.couponName = couponName;
+	public void setCouponCode(String couponCode) {
+		this.couponCode = couponCode;
 	}
 
-	public int getPrice() {
-		return price;
+	public String getexpiryDate() {
+		return expiryDate;
 	}
 
-	public void setPrice(int price) {
-		this.price = price;
+	public void expiryDate(String expiryDate) {
+		this.expiryDate = expiryDate;
 	}
 
 	@Override
 	public String toString() {
-		return "Coupon [couponId=" + couponId + ", couponName=" + couponName + ", price=" + price + "]";
+		return "Coupon [couponId=" + couponId + ", couponCode=" + couponCode + ", expiryDate=" + expiryDate + "]";
 	}
 
 }
