@@ -2,19 +2,17 @@ package com.zensar.Service;
 
 import java.util.List;
 
-import com.zensar.entity.Coupon;
+import com.zensar.dto.CouponDto;
 
 public interface CouponService {
-	
-	public Coupon getCoupon(int couponId);
 
-	public List<Coupon> getAllCoupon();
+	public CouponDto getCoupon(int couponId);
 
-	public void insertCoupon(Coupon coupon);
+	public List<CouponDto> getAllCoupons();
 
-	public void updateCoupon(int couponId, Coupon coupon);
+	public CouponDto insertCoupon(CouponDto coupon);
+
+	public void updateCoupon(int couponId, CouponDto coupon);
 
 	public void deleteCoupon(int couponId);
-
-	
 }
