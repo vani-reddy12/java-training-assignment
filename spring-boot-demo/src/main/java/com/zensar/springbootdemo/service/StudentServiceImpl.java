@@ -1,10 +1,13 @@
 package com.zensar.springbootdemo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.zensar.springboot.dto.StudentDto;
 import com.zensar.springbootdemo.entity.Student;
 import com.zensar.springbootdemo.repository.StudentRepository;
 
@@ -13,35 +16,75 @@ public class StudentServiceImpl implements StudentService {
 	
 	@Autowired
 	private StudentRepository studentRepository;
+	@Autowired
+	private ModelMapper modelMapper;
 
 	@Override
-	public Student getStudent(int studentId) {
-		return studentRepository.findById(studentId).get();
+	public StudentDto getStudent(int studentId) {
+		Student getstudent=studentRepository.findById(studentId).get();
+		//StudentDto dto=mapToDto(student);
+		 return modelMapper.map(getstudent,StudentDto.class);
+		//return dto;
 	}
 
 	@Override
-	public List<Student> getAllStudents() {
-		return studentRepository.findAll();
+	public List<StudentDto> getAllStudents() {
+		List<Student>listOfStudents=studentRepository.findAll();
+		List<StudentDto>listOfStudentDto = new ArrayList<StudentDto>();
+		 
+		for(Student student:listOfStudents) {
+			//listOfStudentDto.add(mapToDto(student));
+			listOfStudentDto.add(modelMapper.map(student,StudentDto.class));
+			}
+			return listOfStudentDto;
+		
 	}
 
 	@Override
-	public void insertStudent(Student student) {
-		studentRepository.save(student);
+	public StudentDto insertStudent(StudentDto studentDto) {
+		//Student student = mapToEntity(studentDto);
+		Student student = modelMapper.map(studentDto, Student.class);
+		Student insertedStudent=studentRepository.save(student);
+		//StudentDto dto = new StudentDto();
+		return modelMapper.map(insertedStudent,StudentDto.class);
+		
+		//return maptoDto;
 
 	}
 
 	@Override
-	public void updateStudent(int studentId, Student student) {
-		studentRepository.save(student);
+	public void updateStudent(int studentId, StudentDto studentDto) {
+		
+		//Student student=mapToEntity(studentDto);
+		Student student = modelMapper.map(studentDto, Student.class);
+		Student updatedStudent=studentRepository.save(student);
+
+
 
 	}
 
 	@Override
 	public void deleteStudent(int studentId) {
-		studentRepository.deleteById(studentId);
+		
+		studentRepository.deleteById(studentId); 
 
 	}
+	/*public StudentDto mapToDto(Student student) {
+		StudentDto dto=new StudentDto();
+		dto.setStudentAge(student.getStudentAge());
+		dto.setStudentId(dto.getStudentId());
+		dto.setStudentName(dto.getStudentName());
+		return dto;
+		
+	}
+
+	public Student mapToEntity(StudentDto studentDto) {
+		Student student=new Student();
+		student.setStudentId(studentDto.getStudentId());
+		student.setStudentName(studentDto.getStudentName());
+		student.setStudentAge(studentDto.getStudentAge());
+		return student;
+	}*/
+		
 
 }
-
-	

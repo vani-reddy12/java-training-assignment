@@ -1,8 +1,3 @@
-# Read Me First
-The following was discovered as part of building this project:
-
-* The original package name 'com.zensar.spring-boot-demo' is invalid and this project uses 'com.zensar.springbootdemo' instead.
-
 # Getting Started
 
 ### Reference Documentation

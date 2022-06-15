@@ -1,7 +1,9 @@
 package com.zensar.springbootdemo;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
@@ -15,7 +17,11 @@ public class SpringBootDemoApplication{
 		System.out.println("Laxman");
 		
 	}
+@Bean
+  public ModelMapper getmodelMapper() {
+	return new ModelMapper();
 
+}
 
 
 }

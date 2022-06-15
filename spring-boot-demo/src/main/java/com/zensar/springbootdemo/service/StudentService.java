@@ -2,17 +2,18 @@ package com.zensar.springbootdemo.service;
 
 import java.util.List;
 
+import com.zensar.springboot.dto.StudentDto;
 import com.zensar.springbootdemo.entity.Student;
 
 public interface StudentService {
 
-	public Student getStudent(int studentId);
+	public StudentDto getStudent(int studentId);
 
-	public List<Student> getAllStudents();
+	public List<StudentDto> getAllStudents();
 
-	public void insertStudent(Student student);
+	public StudentDto insertStudent(StudentDto student);
 
-	public void updateStudent(int studentId, Student student);
+	public void updateStudent(int studentId, StudentDto student);
 
 	public void deleteStudent(int studentId);
 }
