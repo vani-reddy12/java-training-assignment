@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zensar.springboot.dto.StudentDto;
@@ -39,8 +40,9 @@ public class StudentController {
 	// @RequestMapping(value = { "/students", "/listOfStudents"
 	// },method=RequestMethod.GET)
 	@GetMapping(value = { "/students", "/listOfStudents" })
-	public ResponseEntity<List<StudentDto>> getAllStudents() {
-		return new ResponseEntity<List<StudentDto>>(studentService.getAllStudents(), HttpStatus.OK);
+	public ResponseEntity<List<StudentDto>> getAllStudents(@RequestParam(value="pageNumber",required = false,defaultValue="0")int pageNumber,@RequestParam(value="pageSize",required = false,defaultValue="5") int pageSize) {
+		
+		return new ResponseEntity<List<StudentDto>>(studentService.getAllStudents(pageNumber,pageSize), HttpStatus.OK);
 	}
 
 	// http://localhost:8080/students POST
@@ -69,5 +71,15 @@ public class StudentController {
 		studentService.deleteStudent(studentId);
 		return new ResponseEntity<String>("Student deleted succesfully", HttpStatus.OK);
 	}
-
-}
+	
+	@GetMapping(value="/students/name/{studentName}")
+	public ResponseEntity<List<StudentDto>> getByStudentName(@PathVariable("studentName")String studentName) {
+	return new ResponseEntity<List<StudentDto>>(studentService.getByStudentName(studentName),HttpStatus.OK);
+	}
+	
+	@GetMapping(value="/students/{studentName}/{studentAge}")
+	public ResponseEntity<List<StudentDto>> findByStudentNameAndStudentAge(@PathVariable("studentName")String studentName,@PathVariable("studentAge")int age) {
+		return new ResponseEntity<List<StudentDto>>(studentService.findByStudentNameAndStudentAge(studentName,age),HttpStatus.OK);
+		}
+		
+	}

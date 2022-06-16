@@ -1,11 +1,16 @@
 package com.zensar.springbootdemo.service;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.zensar.springboot.dto.StudentDto;
 import com.zensar.springbootdemo.entity.Student;
@@ -28,15 +33,23 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public List<StudentDto> getAllStudents() {
-		List<Student>listOfStudents=studentRepository.findAll();
+	public List<StudentDto> getAllStudents(int pageNumber,int pageSize) {
+		
+		//List<Student>listOfStudents=studentRepository.findAll();
 		List<StudentDto>listOfStudentDto = new ArrayList<StudentDto>();
 		 
-		for(Student student:listOfStudents) {
+		
+		Page<Student> findAll = studentRepository.findAll(PageRequest.of(1, 4));
+		
+		List<Student> content = findAll.getContent();
+	
+		for(Student student:content) {
 			//listOfStudentDto.add(mapToDto(student));
 			listOfStudentDto.add(modelMapper.map(student,StudentDto.class));
 			}
-			return listOfStudentDto;
+		
+		
+		return listOfStudentDto;
 		
 	}
 
@@ -85,6 +98,33 @@ public class StudentServiceImpl implements StudentService {
 		student.setStudentAge(studentDto.getStudentAge());
 		return student;
 	}*/
-		
 
+	@Override
+	public List<StudentDto> getByStudentName(String studentName) {
+	List<StudentDto> studentDtos = new ArrayList();
+	List<Student>students=studentRepository.test(studentName);
+	for (Student student : students)
+	studentDtos.add(modelMapper.map(student, StudentDto.class));
+	return studentDtos;
+
+
+
+	// return studentRepository.getByStudentName(studentName);
+	// return studentRepository.findByStudentName(studentName);
+	}
+
+
+
+	@Override
+	public List<StudentDto>findByStudentNameAndStudentAge(String studentName, int age) {
+	List<StudentDto> studentDtos = new ArrayList();
+	List<Student> students = studentRepository.test1(studentName,age);
+	for (Student student : students)
+	studentDtos.add(modelMapper.map(student, StudentDto.class));
+	return studentDtos;
+	}
 }
+
+
+
+	

@@ -9,11 +9,16 @@ public interface StudentService {
 
 	public StudentDto getStudent(int studentId);
 
-	public List<StudentDto> getAllStudents();
+	public List<StudentDto> getAllStudents(int pagNumber,int pageSize);
 
 	public StudentDto insertStudent(StudentDto student);
 
 	public void updateStudent(int studentId, StudentDto student);
 
 	public void deleteStudent(int studentId);
+	
+	List<StudentDto>getByStudentName(String studentName);
+
+	List<StudentDto>findByStudentNameAndStudentAge(String studentName,int age);
+
 }
