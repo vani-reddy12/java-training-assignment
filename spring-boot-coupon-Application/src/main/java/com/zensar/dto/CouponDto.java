@@ -5,11 +5,11 @@ public class CouponDto {
 
 	private int couponId;
 	private String couponCode;
-	private int expiryDate;
+	private String expiryDate;
 	public CouponDto() {
 		super();
 	}
-	public CouponDto(int couponId, String couponCode, int expiryDate) {
+	public CouponDto(int couponId, String couponCode, String expiryDate) {
 		super();
 		this.couponId = couponId;
 		this.couponCode = couponCode;
@@ -27,16 +27,16 @@ public class CouponDto {
 	public void setCouponCode(String couponCode) {
 		this.couponCode = couponCode;
 	}
-	public int getExpiryDate() {
+	public String getExpiryDate() {
 		return expiryDate;
 	}
-	public void setExpiryDate(int expiryDate) {
+	public void setExpiryDate(String expiryDate) {
 		this.expiryDate = expiryDate;
 	}
 	@Override
 	public String toString() {
 		return "CouponDto [couponId=" + couponId + ", couponCode=" + couponCode + ", expiryDate=" + expiryDate + "]";
 	}
-}
 	
+}
 	
