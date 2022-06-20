@@ -1,0 +1,16 @@
+server:
+ port: 3544
+spring:
+    datasource:
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/vani
+        username: root
+        password: Temp1234
+
+    jpa:
+        generate-ddl: true
+        show-sql: true
+        
+        hibernate:
+            ddl-auto: update
+          
