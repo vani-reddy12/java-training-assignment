@@ -16,3 +16,43 @@ spring:
   properties:
    hibernate:
     format_sql: true
+Management:
+endpoints:
+web:
+base-path: /myactuator
+
+
+exposure:
+include:
+- "*"
+
+logging:
+level:
+com:
+zensar: debug
+
+
+
+
+
+
+
+#endpoint:
+#shutdown:
+#enabled: true
+
+
+#info:
+#build:
+#enabled : true
+#git:
+#enabled : true
+#env:
+#enabled: true
+
+
+
+
+#info:
+#createdBy: VaniReddy.M
+#modified: 22 jun 22
