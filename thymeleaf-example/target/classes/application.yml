@@ -1,0 +1,7 @@
+Homepage:
+  message: Students
+server:
+  port: 2121
+spring:
+  thymeleaf:
+    cache: false
