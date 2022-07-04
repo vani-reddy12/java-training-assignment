@@ -12,11 +12,11 @@ import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 
 	@SpringBootApplication
 	@ComponentScan(basePackages = {"test","com.zensar"})
-	//public class SpringBootProductServiceApplication extends SpringBootServletInitializer {
+	//public class SpringBootProductApplication extends SpringBootServletInitializer {
 	@OpenAPIDefinition
 	@EnableEurekaClient
 	@EnableFeignClients
-	public class SpringBootProductApplication{
+	public class SpringBootProductApplication extends SpringBootServletInitializer{
 	
 		public static void main(String[] args) {
 			//System.out.println("You");
@@ -31,12 +31,11 @@ import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 		return new ModelMapper();
 
 	}
-	/*
-	 * @Override protected SpringApplicationBuilder
-	 * configure(SpringApplicationBuilder builder) {
-	 * 
-	 * return super.configure(builder); }
-	 */
+	
+	  @Override protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+	  
+	  return super.configure(builder); }
+	 
 
 
 
