@@ -1,0 +1,38 @@
+#spring.datasource.url=jdbc:mysql://localhost:3306/vani
+#spring.datasource.username=root
+#spring.datasource.password=Temp1234
+#spring.jpa.hibernate.ddl-auto=create
+server:
+ port: 9999
+spring:
+  datasource:
+   url: jdbc:mysql://localhost:3306/vani
+   username: root
+   password: Temp1234
+  jpa:
+    hibernate:
+      ddl-auto: create
+  show-sql:
+  properties:
+   hibernate:
+    format_sql: true
+
+  application: 
+    name: productapplication
+  
+Management: 
+endpoints:
+web:
+base-path: /myactuator
+
+
+exposure:
+include:
+- "*"
+
+logging:
+level:
+com:
+zensar: debug
+
+    
