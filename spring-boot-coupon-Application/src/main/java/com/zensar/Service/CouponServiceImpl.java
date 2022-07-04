@@ -7,11 +7,14 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.zensar.Repository.CouponRepository;
 import com.zensar.dto.CouponDto;
 import com.zensar.entity.Coupon;
+import com.zensar.exceptions.CouponAlreadyExistsException;
+import com.zensar.exceptions.NoSuchCouponExistsException;
 
 @Service
 public class CouponServiceImpl implements CouponService {
@@ -21,20 +24,28 @@ public class CouponServiceImpl implements CouponService {
 	@Autowired
 	private ModelMapper modelMapper;
 
-	@Override
-	public CouponDto getCoupon(int couponId) {
-		Coupon getcoupon = couponRepository.findById(couponId).get();
-
-		return modelMapper.map(getcoupon, CouponDto.class);
+	public CouponServiceImpl() {
 
 	}
 
 	@Override
-	public List<CouponDto> getAllCoupons(int pageNumber, int pageSize) {
+	public CouponDto getCoupon(int couponId) {
+		Coupon getCoupon = couponRepository.findById(couponId).orElse(null);
+		if (getCoupon == null)
+			throw new NoSuchCouponExistsException("Coupon doesnt exists");
+		return modelMapper.map(getCoupon, CouponDto.class);
+
+	}
+
+	@Override
+	public List<CouponDto> getAllCoupons(int pageNumber, int pageSize, String sortBy, Direction dir) {
 		// List<Coupon>listOfCoupons=couponRepository.findAll();
 		List<CouponDto> listOfCouponDto = new ArrayList<CouponDto>();
 
-		Page<Coupon> findAll = couponRepository.findAll(PageRequest.of(pageNumber,pageSize));
+		Page<Coupon> findAll = couponRepository.findAll(PageRequest.of(pageNumber, pageSize, dir, sortBy));
+		// Page<Coupon> findAll = couponRepository
+		// .findAll(PageRequest.of(pageNumber, pageSize, Direction.DESC, "couponCode"));
+
 		List<Coupon> content = findAll.getContent();
 
 		for (Coupon coupon : content) {
@@ -50,9 +61,14 @@ public class CouponServiceImpl implements CouponService {
 	public CouponDto insertCoupon(CouponDto couponDto) {
 
 		Coupon coupon = modelMapper.map(couponDto, Coupon.class);
-		Coupon insertedCoupon = couponRepository.save(coupon);
+		Coupon getCoupon = couponRepository.save(coupon);
 
-		return modelMapper.map(insertedCoupon, CouponDto.class);
+		if (getCoupon == null) {
+			Coupon insertedCoupon = couponRepository.save(coupon);
+			// return mapToDto(insertedCoupon);
+			return modelMapper.map(insertedCoupon, CouponDto.class);
+		} else
+			throw new CouponAlreadyExistsException("Coupon already exists");
 
 		// return maptoDto;
 
@@ -61,8 +77,12 @@ public class CouponServiceImpl implements CouponService {
 	@Override
 	public void updateCoupon(int couponId, CouponDto couponDto) {
 
+		// Coupon coupon = modelMapper.map(couponDto, Coupon.class);
+		Coupon getCoupon = couponRepository.findById(couponId).orElse(null);
+		if (getCoupon == null)
+			throw new NoSuchCouponExistsException("Coupon doesn't exists");
 		Coupon coupon = modelMapper.map(couponDto, Coupon.class);
-		 couponRepository.save(coupon);
+		couponRepository.save(coupon);
 
 	}
 
